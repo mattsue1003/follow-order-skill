@@ -1,0 +1,474 @@
+<title>長輩願意行動溝通術</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: 口袋對話卡 — 頂部用「說問連選約」五步當主軸，下方分頁：迷思→工具→三大情境→一句話查詢→實證 */
+:root{
+  --bg:#F5F8F7; --surface:#FFFFFF; --ink:#12343B; --muted:#4F666B; --line:#D6E2E0;
+  --teal:#028090; --teal-soft:#E2F1F1; --orange:#E8552D; --orange-soft:#FCEAE3;
+  --amber:#F4A93C; --amber-soft:#FDF2DF; --on-accent:#FFFFFF;
+  --f-display:"Huninn","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-body:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;
+  --r:14px;
+}
+:root[data-theme="dark"]{
+  --bg:#0F2226; --surface:#163035; --ink:#E6F0EF; --muted:#A3B9BC; --line:#2A4A50;
+  --teal:#3FB8C4; --teal-soft:#1B3F45; --orange:#FF7A55; --orange-soft:#3E2620;
+  --amber:#F6BB5E; --amber-soft:#3A3020; --on-accent:#0F2226; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.75;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;line-height:1.35;margin:0}
+h1{font-size:clamp(2rem,6vw,3.1rem)}
+h2{font-size:clamp(1.5rem,4vw,2rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+.muted{color:var(--muted)}
+.label{font-size:.78rem;letter-spacing:.12em;color:var(--teal);font-weight:700}
+a{color:var(--teal)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+
+/* hero */
+.hero{padding-block:40px 28px;display:grid;gap:18px}
+.hero p.lead{font-size:1.1rem;max-width:40em;color:var(--muted)}
+.who{display:flex;flex-wrap:wrap;gap:8px}
+.who span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-size:.92rem}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:6px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:4px;align-content:start}
+.step b{font-family:var(--f-display);font-weight:400;font-size:2rem;color:var(--teal);line-height:1}
+.step .n{font-size:.75rem;color:var(--muted);letter-spacing:.1em}
+.step small{color:var(--muted);font-size:.9rem;line-height:1.5}
+@media (max-width:720px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step:last-child{grid-column:1/-1}}
+
+/* nav */
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
+.tabs .row{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;max-width:980px;margin:0 auto}
+.tabs button{background:none;border:0;padding:12px 14px;white-space:nowrap;border-bottom:3px solid transparent;color:var(--muted);font-size:1rem}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--orange);font-weight:700}
+
+section.panel{padding-top:28px;display:grid;gap:22px}
+.intro{display:grid;gap:6px;max-width:44em}
+
+/* myths */
+.myths{display:grid;gap:12px}
+.myth{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.myth button{width:100%;text-align:left;background:none;border:0;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.myth .tag{flex:none;font-size:.8rem;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--orange-soft);color:var(--orange);margin-top:4px}
+.myth .q{flex:1;min-width:0;font-size:1.08rem;font-weight:500}
+.myth .chev{flex:none;transition:transform .2s;color:var(--muted)}
+.myth.open .chev{transform:rotate(90deg)}
+.myth .a{padding:0 18px 18px 18px;display:grid;gap:8px;border-top:1px dashed var(--line);padding-top:14px}
+.myth .a .tag2{font-size:.8rem;font-weight:700;color:var(--teal)}
+.ev{font-size:.88rem;color:var(--muted);background:var(--bg);border-radius:10px;padding:8px 12px}
+
+/* tools */
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.tool h3 small{display:block;font-family:var(--f-body);font-size:.85rem;color:var(--muted)}
+.tool ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+/* speech */
+.talk{display:grid;gap:8px}
+.say{max-width:92%;padding:10px 14px;border-radius:16px;line-height:1.6;position:relative}
+.say.elder{background:var(--amber-soft);border-bottom-left-radius:4px;justify-self:start}
+.say.you{background:var(--teal-soft);border-bottom-right-radius:4px;justify-self:end}
+.say .who-l{display:block;font-size:.75rem;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.copy{border:1px solid var(--line);background:var(--surface);border-radius:8px;font-size:.8rem;padding:2px 10px;margin-top:6px;color:var(--muted)}
+.copy.ok{color:var(--teal);border-color:var(--teal)}
+.talk{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;min-width:0}
+.res .talk{border:0;padding:0;background:none}
+.talk .tt{font-size:1.02rem}
+.talk .tip{font-size:.9rem;color:var(--muted);background:var(--bg);border-radius:10px;padding:8px 12px;margin-top:4px}
+
+/* ruler */
+.ruler{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px}
+.ruler input[type=range]{width:100%;accent-color:var(--orange)}
+.ruler .val{font-family:var(--f-display);font-size:3rem;color:var(--orange);line-height:1}
+.ruler .scale{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ruler .out{display:grid;gap:8px}
+
+/* scenario switch */
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg.domains button[aria-pressed="true"]{background:var(--teal);color:var(--on-accent);border-color:var(--teal)}
+.block{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px;min-width:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.swap{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.swap .r{display:grid;grid-template-columns:1fr 1fr}
+.swap .r>div{padding:10px 14px;min-width:0}
+.swap .r+.r{border-top:1px solid var(--line)}
+.swap .no{background:var(--orange-soft)}
+.swap .yes{background:var(--teal-soft)}
+.swap .h{font-size:.8rem;font-weight:700;letter-spacing:.08em}
+.swap .h .no{color:var(--orange)} .swap .h .yes{color:var(--teal)}
+@media (max-width:520px){.swap .r{grid-template-columns:1fr}}
+.refs{display:flex;flex-wrap:wrap;gap:8px}
+.refs span{border:1px dashed var(--teal);color:var(--teal);border-radius:10px;padding:4px 12px;font-size:.92rem}
+.flow{display:grid;gap:10px;counter-reset:f}
+.flow li{list-style:none;display:grid;grid-template-columns:2.2em 1fr;gap:10px;align-items:start}
+.flow li::before{counter-increment:f;content:counter(f);font-family:var(--f-display);background:var(--teal);color:var(--on-accent);width:2em;height:2em;border-radius:50%;display:grid;place-items:center}
+.flow{padding:0;margin:0}
+.flow b{display:block}
+
+/* search */
+.search{display:grid;gap:10px}
+.search input{width:100%;font:inherit;padding:14px 16px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+.search input:focus{border-color:var(--teal);outline:none}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.9rem;color:var(--muted)}
+.results{display:grid;gap:12px}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:8px}
+.res .meta{display:flex;flex-wrap:wrap;gap:6px;font-size:.78rem}
+.res .meta span{padding:1px 10px;border-radius:999px;background:var(--bg);color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:24px}
+
+/* evidence */
+.lvl{display:flex;flex-wrap:wrap;gap:10px}
+.lvl div{flex:1 1 200px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.92rem}
+.lvl b{font-family:var(--f-display);font-weight:400;font-size:1.1rem}
+.evlist{display:grid;gap:12px}
+.evi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:6px}
+.evi .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:999px}
+.p1{background:var(--teal);color:var(--on-accent)} .p2{background:var(--amber-soft);color:var(--ink);border:1px solid var(--amber)} .p3{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.evi .cite{font-size:.85rem;color:var(--muted)}
+.evi dl{margin:0;display:grid;grid-template-columns:5em 1fr;gap:4px 10px;font-size:.95rem}
+.evi dt{color:var(--muted)} .evi dd{margin:0;min-width:0}
+
+/* quiz */
+.quiz{display:grid;gap:10px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px}
+.opt.right{border-color:var(--teal);background:var(--teal-soft)}
+.opt.wrong{border-color:var(--orange);background:var(--orange-soft)}
+.fb{font-size:.95rem;padding:10px 14px;border-radius:10px;background:var(--bg)}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:.88rem;color:var(--muted);display:grid;gap:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="label">ICOPE・醫囑・運動　行動溝通快速手冊</span>
+    <h1>評估做完了，<br>怎麼讓長輩願意動起來？</h1>
+    <p class="lead">給長者量六力評估人員、醫療人員、健身教練與家屬。三分鐘看懂原則，現場直接查「長輩這樣說，我可以怎麼回」。</p>
+    <div class="who"><span>ICOPE 評估人員</span><span>醫師・護理師・藥師・治療師</span><span>健身教練</span><span>家屬與照顧者</span></div>
+    <div class="steps" aria-label="五步驟">
+      <div class="step"><span class="n">STEP 1</span><b>說</b><small>用中性、具體的話說結果，不貼標籤</small></div>
+      <div class="step"><span class="n">STEP 2</span><b>問</b><small>先問長輩自己怎麼看、在擔心什麼</small></div>
+      <div class="step"><span class="n">STEP 3</span><b>連</b><small>連結到他在乎的生活：市場、孫子、廟會、旅行</small></div>
+      <div class="step"><span class="n">STEP 4</span><b>選</b><small>給 2–3 個選項，讓長輩自己挑</small></div>
+      <div class="step"><span class="n">STEP 5</span><b>約</b><small>約定一小步與追蹤時間，請他說一遍確認</small></div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="主選單"><div class="row" role="tablist" id="tabs"></div></nav>
+
+  <!-- 迷思 -->
+  <section class="panel" id="p-myth" role="tabpanel">
+    <div class="intro"><span class="label">先打破迷思</span><h2>這五個直覺，常常讓長輩更不想動</h2><p class="muted">點開每一題看看研究怎麼說。</p></div>
+    <div class="myths" id="myths"></div>
+  </section>
+
+  <!-- 工具 -->
+  <section class="panel" id="p-tools" role="tabpanel" hidden>
+    <div class="intro"><span class="label">通用工具箱</span><h2>五個工具，三種情境都用得上</h2><p class="muted">不需要背流程。挑一個今天就用，熟了再加下一個。</p></div>
+    <div class="tools" id="tools"></div>
+    <div class="intro"><span class="label">互動工具</span><h2>改變尺：讓長輩自己說出理由</h2><p class="muted">問：「從 0 到 10，您覺得現在去做這件事有多重要？」拉到長輩說的分數，看看下一句怎麼問。</p></div>
+    <div class="ruler">
+      <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="val" id="rv">4</span><span class="muted">長輩給的分數</span></div>
+      <label for="rr" class="muted" style="font-size:.9rem">拖曳選擇分數</label>
+      <input type="range" id="rr" min="0" max="10" value="4">
+      <div class="scale"><span>0 一點也不重要</span><span>10 非常重要</span></div>
+      <div class="out" id="rout"></div>
+    </div>
+  </section>
+
+  <!-- 情境 -->
+  <section class="panel" id="p-scene" role="tabpanel" hidden>
+    <div class="intro"><span class="label">常見情境</span><h2>選一個你今天會遇到的場景</h2><p class="muted">每段對話都有四到八句來回，最後一行說明用了什麼技巧。</p></div>
+    <div class="seg" id="sceneSeg"></div>
+    <div id="sceneBody" style="display:grid;gap:18px"></div>
+  </section>
+
+  <!-- 查詢 -->
+  <section class="panel" id="p-search" role="tabpanel" hidden>
+    <div class="intro"><span class="label">一句話查詢</span><h2>長輩這樣說，我可以怎麼回？</h2><p class="muted">輸入長輩說的話或關鍵字，例如「忘記」「怕跌倒」「助聽器」「麻煩孩子」。</p></div>
+    <div class="search">
+      <label for="q" class="muted" style="font-size:.9rem">搜尋長輩的話或關鍵字</label>
+      <input id="q" type="search" placeholder="例如：我又沒有失智" autocomplete="off">
+      <div class="chips" id="qchips"></div>
+    </div>
+    <div class="results" id="results"></div>
+  </section>
+
+  <!-- 練習 -->
+  <section class="panel" id="p-quiz" role="tabpanel" hidden>
+    <div class="intro"><span class="label">一分鐘自我檢查</span><h2>哪一句比較能讓長輩願意行動？</h2><p class="muted">三題就好，選完立刻看說明。</p></div>
+    <div id="quiz" style="display:grid;gap:22px"></div>
+  </section>
+
+  <!-- 實證 -->
+  <section class="panel" id="p-ev" role="tabpanel" hidden>
+    <div class="intro"><span class="label">研究依據</span><h2>這些方法的證據有多強？</h2><p class="muted">每篇都列出研究怎麼做、對象是誰、證據等級與限制，方便判斷參考價值。</p></div>
+    <div class="lvl">
+      <div><b>等級 I</b><br>系統性回顧或統合分析（整合多篇研究）</div>
+      <div><b>等級 II</b><br>單一隨機對照試驗（RCT）</div>
+      <div><b>等級 III</b><br>觀察性研究（世代、橫斷、紀錄分析）</div>
+      <div><b>指引</b><br>國際組織的實務指引或報告</div>
+    </div>
+    <div class="evlist" id="evlist"></div>
+  </section>
+
+  <footer>
+    <p>本工具提供溝通方法參考。診斷、治療與用藥調整請由醫師評估；轉介請依各縣市 ICOPE 與長照資源流程辦理。</p>
+    <p>愛迪樂健康促進團隊　鍾孟修 職能治療師</p>
+  </footer>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- tabs ---------- */
+const TABS=[["myth","迷思破解"],["tools","通用工具"],["scene","常見情境"],["search","一句話查詢"],["quiz","自我檢查"],["ev","研究依據"]];
+const tabRow=$("#tabs");
+TABS.forEach(([id,name])=>{const b=document.createElement("button");b.role="tab";b.id="t-"+id;b.textContent=name;b.setAttribute("aria-controls","p-"+id);b.onclick=()=>show(id,true);tabRow.appendChild(b)});
+function show(id,scroll){
+  TABS.forEach(([t])=>{$("#p-"+t).hidden=t!==id;$("#t-"+t).setAttribute("aria-selected",t===id)});
+  try{localStorage.setItem("tab",id)}catch(e){}
+  if(scroll){const n=$("nav.tabs");const y=n.getBoundingClientRect().top+scrollY;if(scrollY>y)scrollTo({top:y,behavior:"smooth"})}
+}
+
+/* ---------- copy ---------- */
+function copyBtn(text){return `<button class="copy" data-copy="${esc(text)}">複製這句</button>`}
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".copy");if(!b)return;
+  const t=b.dataset.copy;
+  const ok=()=>{b.textContent="已複製";b.classList.add("ok");setTimeout(()=>{b.textContent="複製這句";b.classList.remove("ok")},1500)};
+  try{navigator.clipboard.writeText(t).then(ok).catch(()=>sel(b))}catch(err){sel(b)}
+});
+function sel(b){const p=b.parentElement;const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="已選取，請手動複製"}
+const bubble=(who,text,copy)=>`<div class="say ${who==="長輩"?"elder":"you"}"><span class="who-l">${who==="長輩"?"長輩說":"你可以說"}</span>${esc(text)}${copy?"<br>"+copyBtn(text):""}</div>`;
+
+/* ---------- myths ---------- */
+const MYTHS=[
+ {q:"把後果講嚴重一點，長輩怕了就會去做",a:"對「預防型」行為（運動、規律生活），強調「做了會得到什麼」通常比強調「不做會失去什麼」更有說服力。嚇人的說法容易讓人逃避話題，下次乾脆不來評估。",ev:"Gallagher & Updegraff, 2012 統合分析（等級 I）"},
+ {q:"長輩不配合，就是固執",a:"「不要」的背後，常是聽不懂、怕麻煩家人、怕檢查結果、交通不便、覺得丟臉。先問出原因，回應的是原因而不是態度。",ev:"WHO 遵從性報告將不遵從原因分為病人、疾病、治療、醫療體系、社經五大面向（指引）"},
+ {q:"資訊給得越完整，長輩越會照做",a:"一次給太多，長輩只會記得最開始和最後幾句。每次聚焦三個重點以內，再請長輩用自己的話說一次（回覆示教），確認真的聽懂。",ev:"Schillinger 等, 2003（等級 III）；Ha Dinh 等, 2016 系統性回顧（等級 I）"},
+ {q:"道理講清楚，長輩就會被說服",a:"人比較相信自己說出口的理由。與其由專業人員列出十個理由，不如問「如果走路變穩了，您最想去哪裡？」讓長輩自己說出改變的動機。",ev:"Rubak 等, 2005 動機式晤談統合分析（等級 I）"},
+ {q:"年紀大了，改變也來不及了",a:"這句話如果連專業人員都相信，長輩會更相信。對老化抱持正向看法的長者，健康表現更好。先相信長輩還能進步，對方才會願意試。",ev:"Levy 等, 2002 世代追蹤研究（等級 III）"}
+];
+$("#myths").innerHTML=MYTHS.map((m,i)=>`<div class="myth${i===0?" open":""}"><button aria-expanded="${i===0}"><span class="tag">迷思 ${i+1}</span><span class="q">${m.q}</span><span class="chev">›</span></button><div class="a"${i===0?"":" hidden"}><span class="tag2">研究怎麼說</span><p>${m.a}</p><p class="ev">依據：${m.ev}</p></div></div>`).join("");
+document.querySelectorAll(".myth>button").forEach(b=>b.onclick=()=>{const m=b.parentElement,a=m.querySelector(".a");a.hidden=!a.hidden;m.classList.toggle("open",!a.hidden);b.setAttribute("aria-expanded",!a.hidden)});
+
+/* ---------- tools ---------- */
+const TOOLS=[
+ {t:"OARS 四個基本功",s:"動機式晤談的核心技巧",li:["<b>開放式提問</b>：「您覺得最近走路跟以前比起來怎麼樣？」","<b>肯定</b>：肯定努力，不只肯定結果。「您這週有三天都出門散步，很不容易。」","<b>反映</b>：把聽到的話說回去。「聽起來您不是不想去，是怕麻煩女兒載。」","<b>摘要</b>：結束前整理：「所以您願意先試…，我們下週再聊。」"]},
+ {t:"問—說—問",s:"給建議前先問、說完再問",li:["<b>問</b>：「您知道這個檢查是在看什麼嗎？」","<b>說</b>：只補充他不知道的，一次一個重點。","<b>問</b>：「聽完之後，您覺得呢？」把決定權還給長輩。"]},
+ {t:"回覆示教（Teach-back）",s:"確認聽懂，責任在說的人",li:["不要問「這樣懂嗎？」長輩幾乎都會說懂。","改問：「我怕我講得不清楚，回家您會怎麼跟太太說？」","說錯的地方換個方式再講一次，再請他說一次。"]},
+ {t:"如果…就…（意圖執行）",s:"把行動綁在每天本來就會做的事上",li:["「如果早上量完血壓，就做 5 次椅子起立。」","「如果星期二去菜市場，就順路到據點報名。」","時間、地點、動作越具體越容易做到。"]},
+ {t:"給選擇，不給命令",s:"自主感是行動的燃料",li:["準備 2–3 個都可接受的選項，讓長輩挑。","「社區的運動班、在家跟著影片做、先去看門診問問看，您比較想從哪個開始？」","長輩選「都不要」時，問「那什麼時候再聊比較好？」保留下一次。"]}
+];
+$("#tools").innerHTML=TOOLS.map(t=>`<div class="tool"><h3>${t.t}<small>${t.s}</small></h3><ul>${t.li.map(l=>`<li>${l}</li>`).join("")}</ul></div>`).join("");
+
+/* ruler */
+function ruler(v){
+  $("#rv").textContent=v;
+  let html="";
+  if(v==0){html=bubble("你","了解，現在對您來說這件事不太重要。是什麼原因讓您這樣覺得呢？",1)+bubble("你","如果哪一天發生什麼事，您會開始覺得它重要？",1)+`<p class="muted">0 分不要硬推。先理解，約下次再聊，保留關係比說服重要。</p>`}
+  else if(v<=6){html=bubble("你",`為什麼是 ${v} 分，不是 0 分？`,1)+bubble("你",`要發生什麼，才會從 ${v} 分變成 ${Math.min(10,v+2)} 分？`,1)+`<p class="muted">關鍵是「為什麼不是 0」。長輩回答時，說出來的就是他自己的改變理由。不要問「為什麼不是 10」，那會讓他開始解釋為什麼做不到。</p>`}
+  else{html=bubble("你",`${v} 分很高耶！是什麼讓您覺得這麼重要？`,1)+bubble("你","那您想從哪一件小事開始？什麼時候？",1)+`<p class="muted">分數高就直接進入「選」與「約」：定一小步、定時間，請長輩說一次。</p>`}
+  $("#rout").innerHTML=html;
+}
+$("#rr").oninput=e=>ruler(+e.target.value);ruler(4);
+
+/* ---------- scenes ---------- */
+/* 每段對話：t=標題, d=對話（長/你 交替）, k=這段用了什麼技巧 */
+const DOMAINS={
+ "認知":{res:"這次記憶這一項，三個詞記回來一個，比一般建議的少一點。這不是診斷，是提醒我們可以多注意、早一點了解。",live:"「您平常最怕忘記什麼？」（吃藥、瓦斯、約會、孫子的名字）",opts:["到失智共同照護中心或神經內科做進一步檢查","參加社區的認知促進或健康促進課程","先在家做記憶小練習，三個月後再量一次"],talks:[
+  {t:"「我老了本來就會忘記」",k:"先同意一部分（反映），再把「正常」和「可以早點處理」分開，最後用生活連結。",d:[["長輩","我老了本來就會忘記，正常啦。"],["你","對，年紀大了記性會慢一點，這部分是正常的。所以我們才要分清楚，哪些是正常的、哪些可以早一點幫忙。"],["長輩","那我這樣是哪一種？"],["你","今天的結果只是比建議值少一點，還不能說是哪一種，要再進一步了解才知道。您平常最怕忘記什麼事？"],["長輩","最怕忘記關瓦斯，上次差一點。"],["你","瓦斯這件事很重要。早一點知道原因，不管是睡不好、聽不清楚還是其他問題，都比較好處理，您也可以安心煮飯。我們先從這一步開始好嗎？"]]},
+  {t:"「我又沒有失智，不用去檢查」",k:"不辯論、不貼標籤。把「檢查」重新定義成「確認」，並說出常見的好結果。",d:[["長輩","我又沒有失智，不用去檢查。"],["你","您說得對，這次的結果不代表失智，我也沒有這樣想。去進一步了解，是幫您確認到底是什麼原因。"],["長輩","確認什麼？不就是老了嗎？"],["你","很多長輩檢查完，發現是睡不好、血壓、藥物或聽力造成的，處理好記性就回來了。如果真的沒事，您也可以放心。"],["長輩","那要去哪裡？會不會很麻煩？"],["你","有幾個地方可以選：失智共同照護中心、神經內科，或先回您原本看的家醫科請醫師安排。您比較想從哪一個開始？"]]},
+  {t:"「萬一真的是，那怎麼辦？」",k:"先接住擔心（反映情緒），再把「早知道」連結到長輩自己做決定的機會，不急著給答案。",d:[["長輩","萬一真的是，那怎麼辦？我不敢想。"],["你","會擔心是很正常的，這代表您很在意自己的生活。您最擔心的是哪一部分？"],["長輩","怕變成拖累孩子，什麼都不會。"],["你","您一直都很替孩子想。其實早一點知道，就有更多時間可以延緩，也可以趁現在把想做的、想交代的事自己安排好，而不是等到不能決定的時候。"],["長輩","這樣講好像有道理。"],["你","那我們先不急著想最壞的結果，先去把原因弄清楚。您希望家人陪您去，還是我幫您看看哪裡比較方便掛號？"]]}
+ ]},
+ "行動":{res:"這次五次起立花了比較久的時間，代表腿的力氣可以再加強。好消息是，腿力是最容易練回來的。",live:"「您現在還想自己去哪裡？」（市場、廟、公園、孫子學校）",opts:["參加社區預防延緩失能運動課程","申請長照復能服務，治療師到家指導","在家從坐著的運動開始，每天跟著一首老歌動"],talks:[
+  {t:"「我的腳本來就這樣，沒辦法了」",k:"肯定長輩做得到的部分，用「跟您差不多年紀的人」帶出希望，再縮小行動到坐著就能做。",d:[["長輩","我的腳本來就這樣，沒辦法了。"],["你","您今天是自己走進來的，代表腳還有力氣。只是起身這個動作比較吃力，對嗎？"],["長輩","對啊，從椅子站起來都要撐很久。"],["你","很多跟您差不多年紀的長輩，練了兩三個月，起身就輕鬆很多。腿力是六個項目裡最容易練回來的。"],["長輩","我這把年紀還練得起來嗎？"],["你","可以從坐著的動作開始，不用站、不用跳。您想在家自己做，還是到據點跟大家一起？"]]},
+  {t:"「我怕跌倒，不敢動」",k:"把「怕」說成「警覺」來肯定，再翻轉因果：不動更容易跌。提供最安全的起點。",d:[["長輩","我怕跌倒，不敢動。"],["你","會怕跌倒是很好的警覺，很多人就是跌過一次才開始怕。您之前有跌倒過嗎？"],["長輩","去年在浴室滑一下，還好扶到。"],["你","那次一定很嚇人。正因為這樣才要練腿力和平衡，不動腿反而更沒力、更容易再跌。"],["長輩","可是我練的時候跌倒怎麼辦？"],["你","一開始的動作都是坐著做，或扶著桌子、椅背做，不會讓您在不安全的狀況下練。要不要先試一個坐著抬腿的動作給您看？"]]},
+  {t:"「我每天都有在走路啊」",k:"先大力肯定既有習慣，再區分「耐力」和「力量」，用加法而不是否定。",d:[["長輩","我每天都有在走路啊，還要練什麼？"],["你","每天走路很棒，很多人做不到。您一天大概走多久？"],["長輩","早上去公園繞兩圈，差不多半小時。"],["你","這個習慣一定要保持。走路練的是耐力，起身、上樓梯需要的是腿的力量，兩個不太一樣。"],["長輩","所以走路不夠？"],["你","不是不夠，是可以再加一點點。例如走完回家，扶著桌子做五次起立坐下，一分鐘就好。這樣加在您本來的習慣後面，容易記得。您覺得可以嗎？"]]}
+ ]},
+ "營養":{res:"這次體重比之前輕了一些，食慾也比較差。吃得夠，才有力氣做您想做的事。",live:"「您最喜歡吃什麼？最近還吃得下嗎？」",opts:["轉介營養師諮詢，調整成好入口的吃法","到社區據點共餐，有人陪著吃","從每天加一份蛋、豆腐或牛奶開始"],talks:[
+  {t:"「我吃很少也活得好好的」",k:"肯定底子好，再說明長輩和年輕人需求不同，目標改成「留住力氣」而不是「吃多」。",d:[["長輩","我吃很少也活得好好的。"],["你","您身體底子真的不錯。只是年紀大了以後，肌肉需要的蛋白質反而比年輕時多，吃不夠力氣會慢慢流失。"],["長輩","我也不想吃太多，怕胖。"],["你","我們的目標不是變胖，是把力氣留住。像蛋、豆腐、魚、牛奶這些，您哪一種吃得下？"],["長輩","蛋可以，豆腐也還好。"],["你","那我們先從每天多一顆蛋或一塊豆腐開始，其他都不用改。下個月量體重時看看有沒有穩下來，好嗎？"]]},
+  {t:"「瘦一點比較健康啦」",k:"不否定過去的觀念，用「不知不覺變瘦」點出肌肉流失，連結到長輩在意的功能。",d:[["長輩","瘦一點比較健康啦，電視都這樣說。"],["你","年輕的時候確實是這樣。但長輩如果不是刻意減重卻慢慢變瘦，常常是肌肉在流失，不是脂肪。"],["長輩","肌肉少一點有什麼關係？"],["你","肌肉少，起身、提菜、走遠路都會變吃力，也比較容易跌倒。您最近提東西有覺得比較重嗎？"],["長輩","有，買菜回來要休息好幾次。"],["你","那我們就把吃的補一點，讓力氣回來。要不要請營養師幫您看看怎麼吃比較好入口又不會太多？"]]},
+  {t:"「一個人吃飯沒胃口」",k:"先反映孤單的感受，再把營養問題轉成社交的解法，給一次「去看看」的低門檻。",d:[["長輩","一個人吃飯沒胃口，隨便吃吃就好。"],["你","一個人吃真的比較沒意思，煮也麻煩，對嗎？"],["長輩","對，煮一餐吃三餐，吃到都不想吃。"],["你","附近據點有共餐，大家一起吃，很多長輩說胃口變好了，也多認識幾個朋友。"],["長輩","都不認識，去那裡怪怪的。"],["你","第一次去都會有這種感覺。要不要先去一次就好，看看喜不喜歡，不用一開始就決定每天去？我可以先幫您問哪一天菜色比較好。"]]}
+ ]},
+ "視力":{res:"這次看遠或看近的測試有一點吃力。看清楚，走路、看藥袋、看電視都會更安心。",live:"「最近看什麼最吃力？」（報紙、電視字幕、樓梯、藥袋）",opts:["到眼科做詳細檢查","先到眼鏡行重新驗光","在家先改善照明、樓梯邊貼亮色膠帶"],talks:[
+  {t:"「看得到啦，戴老花就好」",k:"同意老花眼鏡有用，再把檢查說成「確認其他原因」，並舉出處理後會變好的例子。",d:[["長輩","看得到啦，戴老花眼鏡就好了。"],["你","老花眼鏡看近的確很有幫助。您戴了眼鏡之後，看電視字幕或走樓梯還清楚嗎？"],["長輩","晚上看電視有點霧霧的。"],["你","霧霧的這個感覺很重要。有時候不是老花，是白內障或其他原因，處理好之後很多人說世界都亮起來了。"],["長輩","所以要去看眼科？"],["你","對，先去檢查一次，看是什麼原因。要不要處理、怎麼處理，醫師會跟您討論，最後還是您決定。"]]},
+  {t:"「開刀很可怕，我不要」",k:"把「檢查」和「開刀」分開，決定權交還長輩，降低想像中的壓力。",d:[["長輩","開刀很可怕，我不要去。"],["你","聽起來您是擔心一去就被要求開刀，對嗎？"],["長輩","對啊，我朋友去就被說要開。"],["你","檢查不等於開刀。先去看是什麼原因，很多情況是配眼鏡或點藥就好。就算醫師建議處理，也是跟您討論，不是馬上安排。"],["長輩","那我可以先聽聽看再說？"],["你","當然可以，決定權在您。我們先把原因弄清楚，其他的以後再說。"]]},
+  {t:"「眼科要等很久，算了」",k:"承認實際困難，提供具體協助選項，而不是叫長輩自己想辦法。",d:[["長輩","眼科要等很久，算了啦。"],["你","等待真的很累人，尤其一個人去。"],["長輩","對，上次等了一個早上。"],["你","有幾個方法：我幫您查附近哪一間比較好掛號、請家人陪您去，或先到眼鏡行驗光看看。您覺得哪一個比較可行？"],["長輩","先去眼鏡行看看好了。"],["你","好，那先驗光。如果眼鏡行說換眼鏡也沒改善，我們再安排眼科，好嗎？"]]}
+ ]},
+ "聽力":{res:"這次聽力的測試，有幾個聲音沒有聽到。聽得清楚，跟家人聊天會更輕鬆，也對大腦有幫助。",live:"「什麼時候最常聽不清楚？」（電話、聚餐、看電視、孫子講話）",opts:["到耳鼻喉科做聽力檢查","到聽力師那裡做評估與試聽","先請家人說話時面對面、放慢速度"],talks:[
+  {t:"「是你們講話太小聲啦」",k:"不反駁，順著長輩的說法走，把兩種可能都說成「好處理」，降低防衛。",d:[["長輩","是你們講話太小聲啦，我聽力好得很。"],["你","有可能喔，有些人講話真的比較小聲。您什麼時候最常聽不清楚？"],["長輩","孫子講話像含滷蛋，還有電話。"],["你","電話和小孩的聲音都比較高，是最先聽不清楚的。如果是別人講太快，很好處理；如果是耳朵需要一點幫忙，早一點知道也比較好。"],["長輩","檢查會不會很麻煩？"],["你","聽力檢查不會痛，大概二十分鐘。要不要我幫您看看附近哪裡可以做？"]]},
+  {t:"「助聽器很貴、戴了很醜」",k:"問出真正在意的點（價錢或外觀），再分開回應；強調「先檢查，不一定需要」。",d:[["長輩","助聽器很貴，戴了又很醜，不要。"],["你","您最在意的是價錢，還是戴起來的樣子？"],["長輩","兩個都有，而且我朋友買了也不戴。"],["你","很多人買了不戴，常是沒有調整好或沒人教。現在的款式有些很小，政府也有補助可以問。而且先檢查才知道需不需要，不一定要用到助聽器。"],["長輩","那先檢查看看沒關係。"],["你","好，先檢查。如果真的需要，我們再一起看哪一種您比較能接受。"]]},
+  {t:"「聽不到也沒差，不想跟人講話」",k:"反映疲累感，點出聽力和社交、情緒的連結，用別人的經驗帶出希望。",d:[["長輩","聽不到也沒差，我本來就不想跟人講話。"],["你","聽不清楚的時候，跟人講話要一直猜、一直問，真的很累。"],["長輩","對，問到人家都煩了，乾脆不講。"],["你","很多長輩是這樣慢慢不出門的。但也有不少人是聽清楚之後，才又開始想聊天、想出去。"],["長輩","真的嗎？"],["你","真的。要不要先檢查看看，知道狀況再決定要不要處理？我陪您把地點和時間排好。"]]}
+ ]},
+ "憂鬱":{res:"這次問到心情的部分，您說最近比較提不起勁、睡不好。這很常見，也是可以被照顧的。",live:"「以前做什麼事會讓您開心？最近還有在做嗎？」",opts:["到身心科或家醫科門診聊聊","找心理師或社區關懷據點的志工陪談","每週固定參加一個有人陪伴的活動"],talks:[
+  {t:"「我又沒有瘋，不用看醫生」",k:"立刻否定「瘋」的標籤，把身心科類比成一般看診，說明很多長輩都會去。",d:[["長輩","我又沒有瘋，看什麼身心科。"],["你","當然不是，我完全沒有這樣想。看身心科就像睡不好去看醫生一樣，是讓睡眠和心情好一點。"],["長輩","給人家知道多難看。"],["你","現在很多長輩都會去，醫師也很習慣聽長輩聊生活。如果您不想去身心科，也可以先跟您原本的家醫科醫師聊聊。"],["長輩","家醫科的醫師我比較熟。"],["你","那就先從熟的醫師開始。下次回診時跟醫師說最近睡不好、提不起勁，醫師會知道怎麼幫您。"]]},
+  {t:"「我不想給孩子添麻煩」",k:"肯定長輩為孩子著想的心意，再翻轉：照顧好自己就是不麻煩孩子。",d:[["長輩","我不想給孩子添麻煩，他們都很忙。"],["你","您一直都很替孩子著想。"],["長輩","他們工作那麼累，我哪好意思說心情不好。"],["你","其實您心情好、睡得好，孩子反而最放心。您覺得有沒有什麼方式，不用麻煩孩子也可以讓自己好一點？"],["長輩","我不知道，可能找人聊聊吧。"],["你","據點有志工和心理師可以聊，不用孩子載。要不要我幫您問一下時間？"]]},
+  {t:"「說了也沒用」",k:"先感謝願意說，不急著解決全部，把問題縮小到「最困擾的一件事」。",d:[["長輩","說了也沒用，日子就是這樣。"],["你","聽起來最近真的很辛苦。謝謝您願意跟我說這些。"],["長輩","每天就是這樣過，沒什麼好說的。"],["你","我們不用一次解決全部。如果只能先改善一件事，您最希望哪一件變好？"],["長輩","晚上睡得好一點就好了。"],["你","睡眠是很好的起點，睡好了很多事會跟著好。這個醫師可以幫忙，我們先約這一件，好嗎？"]]}
+ ]}
+};
+function talkCard(x){return `<div class="talk"><b class="tt">${esc(x.t)}</b>${x.d.map(([w,s])=>bubble(w,s,w==="你")).join("")}<p class="tip">用了什麼：${esc(x.k)}</p></div>`}
+
+const MED=[
+ {t:"「我覺得好多了，就不用再去了」",k:"肯定進步，把「要不要停」交回給醫師判斷，而不是自己說服。",d:[["長輩","我覺得好多了，不用再回診了。"],["你","好多了真的很棒，代表照著做有效。您是哪部分覺得好很多？"],["長輩","頭比較不暈了，藥我就先停了。"],["你","這個好消息一定要讓醫師知道。有些狀況是因為有在處理才變好，停下來會不會又回來，醫師最清楚。"],["長輩","那還是要回去一趟？"],["你","對，把「好很多」和「想停」都跟醫師說，請醫師判斷接下來怎麼安排。回診日期我幫您寫在月曆上好嗎？"]]},
+ {t:"「醫生講太快，我聽不懂」",k:"問—說—問：先問記得什麼，只補最重要的三件事，最後用回覆示教確認。",d:[["長輩","醫生講一堆，我都聽不懂。"],["你","醫師門診時間短，講得快很正常。您記得醫師有說到什麼嗎？"],["長輩","好像說要少鹽，還有什麼要量。"],["你","對，您記到兩個了。今天最重要的是三件事：少鹽、每天早上量血壓、兩週後回診。"],["長輩","喔，兩週後。"],["你","我怕我講得不清楚，您回家會怎麼跟太太說今天的重點？"],["長輩","少鹽、早上量血壓、兩個禮拜後回來。"],["你","完全正確。"]]},
+ {t:"「太多了，我記不住」",k:"承認困難，用「如果…就…」把醫囑綁在固定習慣上，其餘寫下來。",d:[["長輩","要做這麼多，我記不住。"],["你","一次記這麼多真的很難。您每天一定會做的事是什麼？"],["長輩","早上一定會泡茶看報紙。"],["你","那我們就說：泡完茶，先量血壓再看報紙。這樣血壓就綁在您本來的習慣上。"],["長輩","這樣好像比較記得住。"],["你","其他比較少做的，我幫您寫在這張紙上貼冰箱。下次我再問您做得怎麼樣。"]]},
+ {t:"「做了身體不舒服，我就停了」",k:"重視不舒服的感受，不評價自行停藥，但把「調整」的決定導回醫師。",d:[["長輩","吃了會頭暈，我就自己停了。"],["你","會頭暈很不舒服，您停下來是在保護自己。這個感覺很重要，一定要讓醫師知道。"],["長輩","反正不吃就不暈了啊。"],["你","不暈是好事，但有些狀況停下來看不到、感覺不到，等到有感覺就比較麻煩。醫師知道您會暈，可能有別的方式。"],["長輩","那我回診再說。"],["你","好，我們把什麼時候暈、暈多久記下來，回診時直接拿給醫師看，醫師會更好判斷。"]]},
+ {t:"「跑醫院很麻煩，要麻煩孩子載」",k:"把交通這個真實障礙當成要解決的問題，提供資源選項。",d:[["長輩","去醫院要麻煩孩子請假載我，算了。"],["你","交通確實是最實際的困難。孩子平常哪一天比較方便？"],["長輩","他們週六才有空，但門診週六沒有。"],["你","那我們看看兩個方法：一是申請長照的交通接送，二是問醫師能不能改到有週六門診的科別或分院。"],["長輩","長照有這種服務？"],["你","有，我幫您查符不符合資格。先解決交通，回診就不用每次都掙扎了。"]]},
+ {t:"「醬油沾一點有什麼關係」（飲食醫囑）",k:"不當糾察隊，問出長輩在意的味道，一起找替代方案。",d:[["長輩","醬油沾一點而已，有什麼關係。"],["你","吃飯沒味道真的很痛苦，我懂。您最不能沒有的是哪一道？"],["長輩","早餐的醬瓜，沒有它吃不下。"],["你","那醬瓜留著，份量減半。其他的像湯和滷汁先少喝一點，這樣加起來鹽就少很多了。"],["長輩","這樣可以嗎？"],["你","比全部不准吃實際多了。我們先這樣試兩週，回診時看血壓怎麼說。"]]},
+ {t:"「那個拐杖我才不要用」（輔具醫囑）",k:"問出拒絕的真正原因（面子），用長輩在乎的目標重新定義輔具。",d:[["長輩","拐杖我才不要用，用了就真的老了。"],["你","拿拐杖出門會覺得不好看，對嗎？"],["長輩","對啊，鄰居看到會講話。"],["你","您現在出門最想去哪裡？"],["長輩","想去廟裡拜拜，可是路有點遠不敢去。"],["你","那我們不要把它叫拐杖，把它當成讓您能走到廟裡的工具。現在有做得像登山杖的款式，很多年輕人也在用。要不要先試拿一次看看？"]]}
+];
+const EX=[
+ {t:"「我老了，動不了了」",k:"用長輩當下的行為（還在聽）當證據，把動作縮小到一首歌。",d:[["長輩","我老了，動不了了。"],["你","您願意聽我講到現在，就代表還有一點興趣。"],["長輩","興趣是有，但身體不行了。"],["你","我們不用做很多，坐著跟一首歌動動手腳就好。您喜歡哪一首老歌？"],["長輩","鄧麗君的我都喜歡。"],["你","那就放一首鄧麗君的，做完您再告訴我感覺怎麼樣，不喜歡就停，好嗎？"]]},
+ {t:"「一動就痛」",k:"先重視疼痛，分開「會痛的動作」和「不痛的動作」，必要時轉專業評估。",d:[["長輩","一動就痛，怎麼運動？"],["你","會痛一定要先注意。是哪裡痛？什麼動作會痛？"],["長輩","膝蓋，蹲下去站起來就痛。"],["你","那蹲的動作我們先不做。坐著抬腿、踩腳踏板這些不會壓到膝蓋，可以先從這些開始。"],["長輩","這樣有用嗎？"],["你","膝蓋周圍的肌肉有力，膝蓋反而比較不痛。如果一直痛，我們請治療師或醫師幫您看看原因。"]]},
+ {t:"「運動很無聊」",k:"同意無聊，把運動包裝成社交和音樂，不叫它運動。",d:[["長輩","運動很無聊，做幾下就不想做了。"],["你","一個人做真的無聊，我自己也是。"],["長輩","對嘛，你也知道。"],["你","所以我們不要叫它運動。您平常跟誰最常聊天？"],["長輩","隔壁的阿美，常來喝茶。"],["你","那下次她來喝茶，兩個人一起跟著歌動十分鐘，邊聊邊做。很多長輩說這樣一下就過去了。"]]},
+ {t:"「等一下再說」",k:"不追問、不施壓，用選擇題把「等一下」變成具體時間。",d:[["長輩","等一下再說啦。"],["你","好啊，那您覺得什麼時候比較適合？"],["長輩","不知道，看心情。"],["你","吃完午飯休息完，還是看完晚間新聞？您挑一個。"],["長輩","看完新聞吧，那時候比較沒事。"],["你","那我們就約看完新聞。電視關掉就起來動一首歌的時間，就這樣。"]]},
+ {t:"「我每天做家事就夠了」",k:"肯定家事是活動，用「做家事更輕鬆」當目標加一點點。",d:[["長輩","我每天做家事就夠了，不用再運動。"],["你","做家事真的很辛苦，也有在活動。您做哪一件最累？"],["長輩","晾衣服舉手舉久了會酸。"],["你","那我們加一點手臂和腿的力氣，讓晾衣服不那麼累。在廣告時間做三次起立坐下，手往上伸五次就好。"],["長輩","這麼簡單？"],["你","對，重點是每天做。做一週您再告訴我晾衣服有沒有比較輕鬆。"]]},
+ {t:"家屬：「媽，你再不動以後就走不了了」",k:"給家屬的示範：把威脅改成邀請，用「陪我」而不是「你去」。",d:[["長輩","（女兒說）媽，你再不動以後就走不動了。"],["你","（建議女兒改成）媽，陪我去公園走一圈好不好？我一個人走很無聊。"],["長輩","我走不快，你會嫌我慢。"],["你","我就是要慢慢走才找你。走完我們去買你愛吃的豆花。"],["長輩","好啦，去一下。"],["你","（回家後）媽今天走了一圈，我覺得你比上個月穩很多。"]]},
+ {t:"教練：長輩逞強想做太多",k:"給教練的示範：肯定動機，用「先成功再加量」保護安全，把進步連回生活。",d:[["長輩","這個太簡單了，我可以做更多，不用這麼小心。"],["你","您的體力真的比很多同學好，這個企圖心很棒。"],["長輩","那就加重一點啊。"],["你","我們這週先把這個動作做得很穩，確定隔天不會酸痛，下週再加。因為一受傷，休息三週會把進度都退回去。"],["長輩","好吧，那下週一定要加。"],["你","說定了。對了，您上週說搭公車起身比較快了，這就是目前這個強度的效果。"]]}
+];
+/* 共同關卡：三種情境都會遇到 */
+const COMMON=[
+ {t:"「我不要做評估，量這個做什麼」",k:"不先解釋項目，先問長輩在意什麼，再把評估說成「幫您保住想做的事」。",d:[["長輩","量這個做什麼，我身體好得很。"],["你","您身體不錯，很好。您現在最不想失去的是什麼？"],["長輩","自己去市場買菜，不要靠人。"],["你","這個評估就是在看能不能一直自己去市場，六個項目都跟這件事有關。只要十幾分鐘，沒事就安心，有一點退步也可以早點補回來。"],["長輩","那量一下好了。"],["你","好，有任何一項您不想做，跟我說就跳過。"]]},
+ {t:"「我要先問我兒子」",k:"尊重家庭決策，但把長輩自己的意願先說出來，再安排家屬溝通。",d:[["長輩","這個我要先問我兒子。"],["你","當然，跟兒子討論很好。那在問兒子之前，您自己比較想要哪一個？"],["長輩","我自己是想去據點啦，但怕他說麻煩。"],["你","您自己的想法很重要，先記下來。我可以幫您準備一張簡單的說明給兒子看，或您方便的話我直接跟他說明？"],["長輩","你跟他講比較清楚。"],["你","好，請您給我他方便的時間，我來聯絡。"]]},
+ {t:"轉介後沒去：追蹤電話怎麼打",k:"用「很多人都…」開頭讓長輩願意說實話，不責備，找出卡住的點。",d:[["長輩","（電話）啊，那個我還沒去。"],["你","沒關係，很多人都會卡在第一步。是什麼讓您還沒去呢？"],["長輩","不知道要掛哪一科，怕掛錯。"],["你","原來是這個。這很常見，我現在就告訴您掛哪一科，或幫您把掛號的步驟寫下來傳給您。"],["長輩","那你幫我寫，我女兒可以幫我掛。"],["你","好。那我下週再打給您，看掛到哪一天了，好嗎？"]]},
+ {t:"家屬過度保護：「她不能動，會跌倒」",k:"肯定家屬的擔心，用「不動的風險」和「安全的做法」化解，把家屬變成夥伴。",d:[["長輩","（兒子說）我媽不能運動，她會跌倒，你們不要叫她動。"],["你","您很擔心媽媽的安全，這很重要。她之前有跌倒過嗎？"],["長輩","（兒子）有，所以現在都叫她坐著不要亂動。"],["你","坐著確實比較不會跌，但腿越不動越沒力，下次要站起來反而更危險。我們可以用坐著、有扶的動作練，讓她越來越穩。"],["長輩","（兒子）這樣安全嗎？"],["你","我先示範給您看，您在旁邊一起陪，覺得哪裡不放心隨時喊停。"]]},
+ {t:"「這要花錢嗎？」",k:"直接回應費用疑慮，說明有哪些是免費或有補助的，不迴避。",d:[["長輩","這要花錢嗎？我沒什麼錢。"],["你","這是很實際的問題，問得很好。據點的課程和共餐大多是免費或少許費用，長照服務有政府補助。"],["長輩","那看醫生呢？"],["你","健保門診有部分負擔，如果需要輔具也有補助可以申請。我先幫您列出哪些不用錢，從那些開始。"],["長輩","好，先做不用錢的。"],["你","沒問題。等做了有感覺，再看看需不需要其他的。"]]},
+ {t:"「被鄰居知道多丟臉」",k:"接住在意面子的感受，重新定義為「保養」，並提供低曝光的選項。",d:[["長輩","去那種地方被鄰居看到多丟臉，好像我有病。"],["你","您在意別人怎麼看，這很正常。"],["長輩","對啊，一堆人會問東問西。"],["你","其實這就像車子定期保養，不是壞了才修。而且據點裡很多人是去交朋友、唱歌的。如果不想在家附近，也可以選遠一點的地點。"],["長輩","遠一點的我比較沒壓力。"],["你","好，我幫您看隔兩個里的那一間。"]]},
+ {t:"「據點都是老人，我不要跟他們一樣」",k:"不辯論年齡，把長輩擺到「幫忙別人」的位置，用能力感取代被照顧感。",d:[["長輩","那裡都是老人，我才不要跟他們一樣。"],["你","您覺得自己狀況比他們好，對嗎？"],["長輩","當然，我還可以自己煮飯買菜。"],["你","那更好。據點正缺像您這樣能帶動大家的人，老師常需要有人示範。您去不是被照顧，是去幫忙。"],["長輩","這樣講的話我可以考慮。"],["你","先去一次看看，覺得不適合就不勉強。"]]}
+];
+const SCENES={
+ icope:{name:"ICOPE 長者量六力",render:icope},
+ med:{name:"醫囑遵循",render:med},
+ ex:{name:"在家運動",render:ex},
+ common:{name:"共同關卡",render:common}
+};
+let curDomain="行動";
+function icope(){
+  return `<div class="block"><span class="label">核心觀念</span><h3>評估結果異常，是開始對話，不是宣判</h3>
+  <p>長者量六力的價值在於「找出來之後有沒有接上服務」。結果出現異常時，長輩最常卡在三件事：<b>聽到「異常」就害怕</b>、<b>不覺得跟自己的生活有關</b>、<b>不知道下一步要做什麼</b>。用「說、問、連、選、約」五步，把結果變成長輩自己的決定。</p>
+  <div class="swap"><div class="r h"><div class="no">避免這樣說</div><div class="yes">改成這樣說</div></div>
+  <div class="r"><div class="no">您這項異常，要轉介。</div><div class="yes">這一項比建議值低一點，我們可以早一點處理。</div></div>
+  <div class="r"><div class="no">您有失能風險。</div><div class="yes">您的腿力還有很大的進步空間。</div></div>
+  <div class="r"><div class="no">一定要去看醫生。</div><div class="yes">有幾個方法，您想先從哪一個開始？</div></div>
+  <div class="r"><div class="no">這樣懂嗎？</div><div class="yes">回家您會怎麼跟家人說今天的結果？</div></div></div></div>
+  <div class="block"><span class="label">六大面向</span><h3>選擇長輩出現異常的面向</h3>
+  <div class="seg domains" id="domSeg">${Object.keys(DOMAINS).map(d=>`<button aria-pressed="${d===curDomain}" data-d="${d}">${d}</button>`).join("")}</div>
+  <div id="domBody"></div></div>
+  <div class="block"><span class="label">最後一分鐘</span><h3>離開前的確認清單</h3>
+  <ol class="flow"><li><div><b>長輩自己選了一個行動</b>不是你選的，是他說出口的。</div></li><li><div><b>行動有時間、有地點</b>「下週二早上去據點」比「有空去」容易做到。</div></li><li><div><b>長輩用自己的話說一遍</b>聽到說錯的地方，換個說法再講。</div></li><li><div><b>約好追蹤</b>「我兩週後打電話問您去得順不順利，好嗎？」</div></li><li><div><b>如果長輩拒絕</b>尊重並留一扇門：「沒關係，下次量的時候我們再聊。」</div></li></ol></div>`;
+}
+function renderDomain(){
+  const d=DOMAINS[curDomain];
+  $("#domBody").innerHTML=`<div class="two" style="margin-top:6px">
+   <div style="display:grid;gap:10px;min-width:0"><b>1　說結果</b>${bubble("你",d.res,1)}<b>2–3　問想法、連生活</b><p>${esc(d.live)}</p></div>
+   <div style="display:grid;gap:10px;min-width:0"><b>4　給選擇</b><div class="refs">${d.opts.map(o=>`<span>${esc(o)}</span>`).join("")}</div><p class="muted" style="font-size:.92rem">轉介單位與流程依各縣市 ICOPE 規定為準。</p><b>5　約一小步</b><p>「那我們說好，下週___，您先去___。我___再打電話給您。」</p></div></div>
+   <b style="margin-top:8px">完整對話範例</b>
+   <div class="two">${d.talks.map(talkCard).join("")}</div>`;
+}
+function med(){
+  return `<div class="block"><span class="label">核心觀念</span><h3>遵循度不是「聽話程度」，是「做得到的程度」</h3>
+  <p>醫囑包含回診、檢查、飲食、復健、輔具、服藥等。長輩沒照做，常見原因是聽不懂、記不住、覺得好了就不用、擔心身體不舒服、或生活作息配合不上。重點是讓醫囑「聽得懂、記得住、放得進生活」。用藥的調整一律交由醫師判斷，其他專業人員負責陪長輩把感受說出來。</p>
+  <div class="swap"><div class="r h"><div class="no">避免這樣說</div><div class="yes">改成這樣說</div></div>
+  <div class="r"><div class="no">你怎麼又沒照醫生說的做？</div><div class="yes">很多人都會忘記，這週大概有幾天做到？</div></div>
+  <div class="r"><div class="no">有問題嗎？沒問題就這樣。</div><div class="yes">回家之後，您覺得哪一項最難做到？</div></div>
+  <div class="r"><div class="no">這些都要注意喔。（列十項）</div><div class="yes">今天最重要的是這三件事。</div></div></div></div>
+  <div class="block"><span class="label">三個時間點</span><h3>看診中、離開前、回家後</h3>
+  <ol class="flow">
+   <li><div><b>看診中：問—說—問，限三個重點</b>先問長輩知道多少，再補充最重要的三件事，用生活語言取代專有名詞。</div></li>
+   <li><div><b>離開前：回覆示教＋如果…就…</b>「回家您會怎麼跟家人說？」再一起把醫囑綁在每天的固定習慣上，例如「吃完早餐就…」。</div></li>
+   <li><div><b>回家後：不責備的追蹤</b>用「很多人都會…」開頭的問句，讓長輩願意說實話；遇到不舒服的感受，鼓勵記下來回診時告訴醫師。</div></li></ol></div>
+  <div class="block"><span class="label">完整對話範例</span><h3>七個常見場面</h3>
+  <div class="two">${MED.map(talkCard).join("")}</div></div>`;
+}
+function ex(){
+  return `<div class="block"><span class="label">核心觀念</span><h3>不要叫長輩「運動」，邀他一起「做想做的事」</h3>
+  <p>對長輩來說，「運動」常常等於累、痛、會跌倒。把目標換成長輩在乎的生活：自己去市場、陪孫子玩、出國旅行。從坐著開始、搭配熟悉的老歌、找人一起做，比一張動作清單更容易持續。</p>
+  <div class="swap"><div class="r h"><div class="no">避免這樣說</div><div class="yes">改成這樣說</div></div>
+  <div class="r"><div class="no">你要運動，不然會退化。</div><div class="yes">腿有力了，過年就能自己去逛年貨。</div></div>
+  <div class="r"><div class="no">今天要做 30 分鐘。</div><div class="yes">我們先跟著一首歌動，做完再決定要不要第二首。</div></div>
+  <div class="r"><div class="no">你這樣做錯了。</div><div class="yes">很好，再把手抬高一點點會更輕鬆。</div></div>
+  <div class="r"><div class="no">你看隔壁阿伯每天走一萬步。</div><div class="yes">您這週比上週多做了兩天，進步很多。</div></div></div></div>
+  <div class="two">
+   <div class="block"><span class="label">給家屬</span><h3>在家怎麼開口</h3><ul style="margin:0;padding-left:1.2em;display:grid;gap:6px">
+   <li>用「陪我」取代「你去」：「陪我去公園走一圈好不好？」</li><li>綁在生活裡：看連續劇廣告時一起做起立。</li><li>讓長輩當老師：「媽，你年輕時跳的那個舞教我。」</li><li>稱讚努力，不比較：別拿其他長輩當標準。</li><li>痛或頭暈先停，請專業人員評估，不硬撐。</li></ul></div>
+   <div class="block"><span class="label">給健身教練</span><h3>課堂中怎麼帶</h3><ul style="margin:0;padding-left:1.2em;display:grid;gap:6px">
+   <li>第一堂先問目標：「您希望練了之後可以做到什麼？」</li><li>由坐到站漸進，先讓長輩成功，建立信心。</li><li>用熟悉的老歌當節奏，降低「在運動」的感覺。</li><li>每次結束時問：「今天哪個動作最舒服？」</li><li>把進步連回生活：「起身變快了，搭公車更從容。」</li></ul></div></div>
+  <div class="block"><span class="label">完整對話範例</span><h3>七個常見場面</h3>
+  <div class="two">${EX.map(talkCard).join("")}</div></div>`;
+}
+function common(){
+  return `<div class="block"><span class="label">核心觀念</span><h3>不管哪個情境，這七個關卡都會出現</h3>
+  <p>拒絕評估、要問家人、轉介後沒去、家屬過度保護、擔心費用、怕丟臉、不想被當老人。這些不是某一項異常的問題，是「願不願意踏出第一步」的問題。共同的做法：<b>先問出卡住的原因</b>，再回應原因，而不是回應態度。</p></div>
+  <div class="block"><span class="label">完整對話範例</span><h3>七個關卡</h3>
+  <div class="two">${COMMON.map(talkCard).join("")}</div></div>`;
+}
+
+const segEl=$("#sceneSeg");let curScene="icope";
+function drawScene(){
+  segEl.innerHTML=Object.entries(SCENES).map(([k,v])=>`<button aria-pressed="${k===curScene}" data-s="${k}">${v.name}${k==="icope"?"（主軸）":""}</button>`).join("");
+  $("#sceneBody").innerHTML=SCENES[curScene].render();
+  if(curScene==="icope"){renderDomain();$("#domSeg").onclick=e=>{const b=e.target.closest("button");if(!b)return;curDomain=b.dataset.d;document.querySelectorAll("#domSeg button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderDomain()}}
+}
+segEl.onclick=e=>{const b=e.target.closest("button");if(!b)return;curScene=b.dataset.s;drawScene()};
+drawScene();
+
+/* ---------- search ---------- */
+const DB=[];
+Object.entries(DOMAINS).forEach(([d,v])=>v.talks.forEach(t=>DB.push({scene:"ICOPE",tag:d,...t})));
+MED.forEach(t=>DB.push({scene:"醫囑遵循",tag:"醫囑",...t}));
+EX.forEach(t=>DB.push({scene:"在家運動",tag:"運動",...t}));
+COMMON.forEach(t=>DB.push({scene:"共同關卡",tag:"第一步",...t}));
+const CH=["忘記","失智","跌倒","痛","助聽器","開刀","瘦","孩子","麻煩","記不住","好多了","無聊","看醫生","花錢","丟臉","還沒去","拐杖","家事"];
+$("#qchips").innerHTML=CH.map(c=>`<button data-q="${c}">${c}</button>`).join("");
+$("#qchips").onclick=e=>{const b=e.target.closest("button");if(!b)return;$("#q").value=b.dataset.q;doSearch()};
+function doSearch(){
+  const q=$("#q").value.trim();
+  const text=x=>x.t+x.k+x.tag+x.scene+x.d.map(s=>s[1]).join("");
+  const list=q?DB.filter(x=>text(x).includes(q)):DB;
+  $("#results").innerHTML=(q?`<p class="muted">找到 ${list.length} 段對話</p>`:`<p class="muted">全部 ${DB.length} 段對話</p>`)+(list.length?list.map(x=>`<div class="res"><div class="meta"><span>${x.scene}</span><span>${x.tag}</span></div>${talkCard(x)}</div>`).join(""):`<div class="empty">找不到相符的句子。試試更短的關鍵字，或到「常見情境」看完整說法。</div>`);
+}
+$("#q").oninput=doSearch;doSearch();
+
+/* ---------- quiz ---------- */
+const QZ=[
+ {q:"ICOPE 評估後，長輩的起立測試偏慢。你會怎麼開口？",o:["您這項異常，有失能風險，要去上課。","這一項比建議值慢一點，好消息是腿力最容易練回來。您最近起身有覺得比較吃力嗎？"],a:1,f:"第二句做到「說」與「問」：中性描述結果、帶出希望，再把話題交給長輩。第一句的「異常、失能」容易讓長輩害怕或否認。"},
+ {q:"衛教結束前，想確認長輩聽懂了。",o:["阿姨，這樣懂嗎？","我怕我講得不清楚，回家您會怎麼跟兒子說今天的重點？"],a:1,f:"「懂嗎？」幾乎都會得到「懂」。請長輩用自己的話說一次，是回覆示教的做法，也把責任放在說明的人身上。"},
+ {q:"長輩說：「我老了，運動沒用啦。」",o:["為什麼是 3 分，不是 0 分？您覺得運動可能有什麼好處？","不會啦！研究說運動可以降低很多疾病風險，你一定要做。"],a:0,f:"直接反駁容易讓長輩更堅持「沒用」。用改變尺問「為什麼不是 0」，讓長輩自己說出運動的好處，那才是他會相信的理由。"}
+];
+$("#quiz").innerHTML=QZ.map((z,i)=>`<div class="block quiz" data-i="${i}"><b>${i+1}. ${z.q}</b>${z.o.map((o,j)=>`<button class="opt" data-j="${j}">${String.fromCharCode(65+j)}　${o}</button>`).join("")}<div class="fb" hidden></div></div>`).join("");
+document.querySelectorAll(".quiz").forEach(el=>el.onclick=e=>{const b=e.target.closest(".opt");if(!b)return;const z=QZ[+el.dataset.i];el.querySelectorAll(".opt").forEach(x=>x.classList.remove("right","wrong"));const ok=+b.dataset.j===z.a;b.classList.add(ok?"right":"wrong");const fb=el.querySelector(".fb");fb.hidden=false;fb.innerHTML=(ok?"<b>選得好。</b>":"<b>再想想。</b>")+z.f});
+
+/* ---------- evidence ---------- */
+const EV=[
+ {lv:1,t:"動機式晤談對多種健康行為的效果",cite:"Rubak S, Sandbæk A, Lauritzen T, Christensen B. Br J Gen Pract. 2005;55:305–312.",how:"系統性回顧與統合分析，納入 72 篇隨機對照試驗。",who:"成人，涵蓋飲食、運動、體重、血壓、膽固醇、飲酒等行為。",find:"約四分之三的研究顯示動機式晤談有顯著且具臨床意義的效果；15 分鐘左右的短時間會談，也有 64% 的研究出現效果，且多次會談效果較穩定。合併分析對身體質量指數、總膽固醇、收縮壓、飲酒有效，對每日吸菸量與糖化血色素則未達顯著。",lim:"各研究的對象與結果指標差異大；並非專門針對長者。",q:"中"},
+ {lv:1,t:"動機式晤談增加慢性病患者的身體活動",cite:"O'Halloran PD, et al. Clin Rehabil. 2014;28(12):1159–1171.",how:"系統性回顧與統合分析，納入 10 篇隨機對照試驗（11 篇文獻）。",who:"患有慢性疾病（如心肺、代謝、骨關節問題）的成人，多數為中高齡。",find:"在一般照護之外加上動機式晤談，身體活動量有小幅但顯著的增加（標準化平均差 0.19）；對心肺適能與功能性運動能力則沒有確定的結論。",lim:"效果偏小；介入方式與測量工具不一。",q:"中"},
+ {lv:1,t:"長者身體活動與自我效能的行為改變技巧",cite:"French DP, Olander EK, Chisholm A, Mc Sharry J. Ann Behav Med. 2014;48(2):225–234.",how:"系統性回顧與統合迴歸，納入 24 篇研究，分析介入中使用的行為改變技巧。",who:"60 歲以上、非臨床的社區長者。",find:"介入整體可提升自我效能（效果量 0.37）與身體活動（0.14）；但常用於年輕成人的自我調節技巧（設定行為目標、自我監測、預防復發、提供常模資訊、表現回饋）反而與較低的自我效能和身體活動有關。作者建議長者的做法要另外設計。",lim:"納入研究數有限，屬相關性分析，不能直接推論因果。",q:"中"},
+ {lv:1,t:"正向框架與負向框架訊息的說服效果",cite:"Gallagher KM, Updegraff JA. Ann Behav Med. 2012;43(1):101–116.",how:"統合分析，整合 94 篇研究、189 個效果量。",who:"多為一般成人與大學生。",find:"對預防型行為（身體活動、防曬、戒菸效果最明顯），強調好處的正向框架比強調損失的訊息更能促成實際行為；對篩檢型行為，兩種框架沒有顯著差異。框架效果只出現在行為上，對態度與意圖沒有差別。",lim:"效果量小（r 約 0.08）；多數研究非長者族群。",q:"中"},
+ {lv:1,t:"如果…就…（意圖執行）對達成目標的效果",cite:"Gollwitzer PM, Sheeran P. Adv Exp Soc Psychol. 2006;38:69–119.",how:"統合分析，整合 94 項獨立檢驗、超過 8000 名參與者。",who:"以成人為主，涵蓋健康、學習、環保等多種目標。",find:"事先寫下「如果遇到情境 X，就做 Y」，對達成目標有中到大的效果（效果量 d = 0.65）。",lim:"多數研究對象為年輕成人；長者族群證據較少。",q:"中"},
+ {lv:1,t:"回覆示教（Teach-back）的效果",cite:"Ha Dinh TT, Bonner A, Clark R, Ramsbotham J, Hines S. JBI Database System Rev Implement Rep. 2016;14(1):210–247.",how:"系統性回顧，納入 12 篇研究（含隨機對照、類實驗與前後測研究）。",who:"各類醫療情境中的病人，多為慢性病患者。",find:"四篇研究顯示疾病知識提升，兩篇顯示自我效能提升，一篇顯示第二型糖尿病患者的用藥與飲食遵從度改善；五篇報告再住院減少，但不是每篇都達統計顯著。",lim:"研究設計混合（隨機與非隨機）、品質不一，未做統合分析；生活品質與知識保留的證據有限。",q:"中低"},
+ {lv:1,t:"醫病共享決策輔助工具",cite:"Stacey D, et al. Cochrane Database Syst Rev. 2017;(4):CD001431.",how:"Cochrane 系統性回顧，納入 105 篇隨機對照試驗、約 3 萬 1 千名參與者（2024 年更新版已擴大到 209 篇）。",who:"面臨治療或篩檢決策的成人病人。",find:"使用決策輔助工具的病人，知識增加、對風險的認識更準確、決策衝突降低，選擇也更符合自己重視的價值。",lim:"主要測量決策過程，對長期健康結果的證據較少。",q:"高"},
+ {lv:3,t:"健康識能不足病人與回覆示教",cite:"Schillinger D, et al. Arch Intern Med. 2003;163(1):83–90.",how:"觀察性研究，錄音分析公立醫院門診對話。",who:"38 名基層醫師與 74 名健康識能不足、英語母語的糖尿病病人。",find:"醫師只在 20% 的門診、12% 的新觀念中確認病人是否聽懂；有被確認理解的病人，糖尿病控制較好。",lim:"樣本小、觀察性設計，只能說明相關，不能證明因果。",q:"中低"},
+ {lv:3,t:"對老化的看法與壽命",cite:"Levy BR, Slade MD, Kunkel SR, Kasl SV. J Pers Soc Psychol. 2002;83(2):261–270.",how:"長期世代追蹤研究，老化看法的測量最早在死亡資料前 23 年完成。",who:"美國俄亥俄州一個小鎮 660 名 50 歲以上居民（338 男、322 女）。",find:"對自己的老化抱持較正向看法的人，多活約 7.5 年；控制年齡、性別、社經地位、孤單感與整體健康後差異仍然存在。研究者認為「求生意志」只能部分解釋這個關係。",lim:"觀察性研究；單一地區樣本，文化差異需考量。",q:"中"},
+ {lv:0,t:"長期治療的遵從性",cite:"World Health Organization. Adherence to long-term therapies: evidence for action. 2003.",how:"WHO 國際專家整理各國研究的實務報告。",who:"慢性病長期治療的病人。",find:"已開發國家慢性病長期治療的平均遵從率約五成；不遵從的原因可分為病人、疾病、治療、醫療體系、社會經濟五大面向。",lim:"屬整理報告，不同疾病與國家的數字差異大。",q:"指引"},
+ {lv:0,t:"長者整合照護（ICOPE）",cite:"World Health Organization. Integrated care for older people (ICOPE): guidance for person-centred assessment and pathways in primary care. 2019.",how:"WHO 實務指引。",who:"社區與基層照護中的長者。",find:"以認知、行動、營養、視力、聽力、心理六大內在能力篩檢，異常者進入進一步評估，並依長者的目標與偏好擬定個人化照護計畫。",lim:"為實務指引；各國依本地資源調整轉介流程。",q:"指引"}
+];
+const LV={1:["等級 I","p1"],2:["等級 II","p2"],3:["等級 III","p2"],0:["指引","p3"]};
+$("#evlist").innerHTML=EV.map(e=>`<div class="evi"><div class="top"><span class="pill ${LV[e.lv][1]}">${LV[e.lv][0]}</span><span class="pill p3">研究品質：${e.q}</span></div><h3>${e.t}</h3><p class="cite">${e.cite}</p><dl><dt>怎麼做</dt><dd>${e.how}</dd><dt>對象</dt><dd>${e.who}</dd><dt>發現</dt><dd>${e.find}</dd><dt>限制</dt><dd>${e.lim}</dd></dl></div>`).join("");
+
+/* init */
+let start="myth";
+const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h))start=h;else{try{const s=localStorage.getItem("tab");if(s&&TABS.some(t=>t[0]===s))start=s}catch(e){}}
+show(start,false);
+</script>
